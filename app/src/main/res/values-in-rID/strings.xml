@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="countryCode">id</string>
+
+    <!--Home Activity-->
+    <string name="Profile">Profil</string>
+
+    <!--List Movie Fragment-->
+    <string name="now_playing">Sedang Tayang</string>
+</resources>

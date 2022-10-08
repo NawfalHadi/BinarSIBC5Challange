@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name" translatable="false">BinarSIBC5Challange</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title" translatable="false">Title : The Legend Of Lorem Ipsum</string>
+
+
+    <string name="countryCode">en-US</string>
+
+    <!--Home Activity-->
+    <string name="Film" translatable="false">Film</string>
+    <string name="Profile">Profile</string>
+
+    <!--List Movie Fragment-->
+    <string name="now_playing">Now Playing</string>
+</resources>

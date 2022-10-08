@@ -1,0 +1,40 @@
+package com.thatnawfal.binarsibc5challange.data.network.service
+
+import com.thatnawfal.binarsibc5challange.BuildConfig
+import com.thatnawfal.binarsibc5challange.R
+import com.thatnawfal.binarsibc5challange.data.network.response.ListResponse
+import com.thatnawfal.binarsibc5challange.data.network.response.MoviesListItemResponse
+import com.thatnawfal.binarsibc5challange.data.network.response.detailresponse.MovieDetailResponse
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+
+interface ApiService {
+
+    @GET("movie/now_playing")
+    suspend fun getMoviePlaying(
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
+    ) : ListResponse<MoviesListItemResponse>
+
+    @GET("movie/{id}")
+    suspend fun getMovieDetail(
+        @Path("id") movieId: Int,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+        @Query("language") language: String = R.string.countryCode.toString()
+    ) : MovieDetailResponse
+
+    @GET("movie/latest")
+    suspend fun getMovieLatest(
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
+    ) : ListResponse<MoviesListItemResponse>
+
+    @GET("movie/upcmoing")
+    suspend fun getMovieUpcoming(
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
+    ) : ListResponse<MoviesListItemResponse>
+
+    @GET("movie/top_rated")
+    suspend fun getMovieTopRated(
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
+    ) : ListResponse<MoviesListItemResponse>
+}
