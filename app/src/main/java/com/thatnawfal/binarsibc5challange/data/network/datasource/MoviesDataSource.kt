@@ -12,6 +12,7 @@ interface MoviesDataSource {
     suspend fun loadLatestMovies(): ListResponse<MoviesListItemResponse>
     suspend fun loadUpcomingMovies(): ListResponse<MoviesListItemResponse>
     suspend fun loadTopRatedMovies(): ListResponse<MoviesListItemResponse>
+    suspend fun loadPopularMovies(): ListResponse<MoviesListItemResponse>
 }
 
 class MoviesDataSourceImpl(private var apiService: ApiService) : MoviesDataSource{
@@ -33,6 +34,10 @@ class MoviesDataSourceImpl(private var apiService: ApiService) : MoviesDataSourc
 
     override suspend fun loadTopRatedMovies(): ListResponse<MoviesListItemResponse> {
         return apiService.getMovieTopRated()
+    }
+
+    override suspend fun loadPopularMovies(): ListResponse<MoviesListItemResponse> {
+        return apiService.getPopularMovie()
     }
 
 }

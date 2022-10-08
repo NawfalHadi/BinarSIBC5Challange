@@ -14,6 +14,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:src="@drawable/bg_home"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
@@ -36,6 +42,13 @@
                 tools:listitem="@layout/item_horizontal_poster"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_movie_listRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_list_recycler"
+                app:layout_constraintTop_toBottomOf="@+id/rv_movie_nowPlaying" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

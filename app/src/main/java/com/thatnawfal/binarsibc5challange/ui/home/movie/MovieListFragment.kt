@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.thatnawfal.binarsibc5challange.R
 import com.thatnawfal.binarsibc5challange.databinding.FragmentMovieListBinding
 import com.thatnawfal.binarsibc5challange.provider.ServiceLocator
+import com.thatnawfal.binarsibc5challange.ui.home.movie.adapter.ListRecycler
 import com.thatnawfal.binarsibc5challange.ui.home.movie.adapter.NowPlayingAdapter
+import com.thatnawfal.binarsibc5challange.ui.home.movie.adapter.ParentAdapter
 import com.thatnawfal.binarsibc5challange.ui.home.movie.adapter.itemClickListerner
 import com.thatnawfal.binarsibc5challange.ui.home.movie.viewmodel.MovieListViewModel
 import com.thatnawfal.binarsibc5challange.utils.viewModelFactory
@@ -31,6 +33,10 @@ class MovieListFragment : Fragment() {
         })
     }
 
+    private val adapterListRecycler : ParentAdapter by lazy {
+        ParentAdapter()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,9 +48,23 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadNowPlayingMovies()
+        loadMovieCategories()
         observeData()
 
+    }
+
+    private fun loadMovieCategories() {
+        viewModel.loadNowPlayingMovies()
+        viewModel.loadTopRatedMovies()
+        viewModel.loadPopularMovies()
+//        viewModel.loadLatestMovie()
+//        viewModel.loadUpcomingMovies()
+    }
+
+
+    private fun initRecyclerList(){
+        binding.rvMovieListRecycler.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        binding.rvMovieListRecycler.adapter = adapterListRecycler
     }
 
     private fun initlist() {
@@ -71,6 +91,42 @@ class MovieListFragment : Fragment() {
             }
         }
 
+        viewModel.topRatedListMovies.observe(requireActivity()){
+            when (it) {
+                is Resource.Success -> it.payload?.result?.let {
+                    adapterListRecycler.addItems(ListRecycler(getString(R.string.toprated_movies), it))
+                }
+            }
+        }
+
+        viewModel.popularListMovies.observe(requireActivity()){
+            when (it) {
+                is Resource.Success -> it.payload?.result?.let {
+                    adapterListRecycler.addItems(ListRecycler(getString(R.string.popular_movies), it))
+                }
+            }
+        }
+
+        viewModel.latestListMovies.observe(requireActivity()){
+            when (it) {
+                is Resource.Success -> it.payload?.result?.let {
+                    adapterListRecycler.addItems(ListRecycler(getString(R.string.latest_movies), it))
+                }
+            }
+        }
+
+
+        viewModel.upcomingListMovies.observe(requireActivity()){
+            when (it) {
+                is Resource.Success -> it.payload?.result?.let {
+                    adapterListRecycler.addItems(ListRecycler(getString(R.string.upcoming_movies), it))
+                }
+            }
+        }
+
+        initRecyclerList()
+
+
         viewModel.resultDetailMovie.observe(requireActivity()){
             when (it) {
                 is Resource.Success -> it.payload?.let {
@@ -78,5 +134,8 @@ class MovieListFragment : Fragment() {
                 }
             }
         }
+
+
+
     }
 }

@@ -21,4 +21,5 @@ object ServiceLocator {
     fun provideRepository(): MovieRepository{
         return MoviewRepositoryImpl(provideMovieDataSource(provideApiService()))
     }
+
 }

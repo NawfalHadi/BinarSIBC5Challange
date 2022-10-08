@@ -37,4 +37,9 @@ interface ApiService {
     suspend fun getMovieTopRated(
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
     ) : ListResponse<MoviesListItemResponse>
+
+    @GET("movie/popular")
+    suspend fun getPopularMovie(
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
+    ) : ListResponse<MoviesListItemResponse>
 }

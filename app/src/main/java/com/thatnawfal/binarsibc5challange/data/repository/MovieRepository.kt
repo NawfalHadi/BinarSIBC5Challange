@@ -12,6 +12,7 @@ interface MovieRepository {
     suspend fun loadLatestMovie(): Resource<ListResponse<MoviesListItemResponse>>
     suspend fun loadUpcomingMovies(): Resource<ListResponse<MoviesListItemResponse>>
     suspend fun loadTopRatedMovies(): Resource<ListResponse<MoviesListItemResponse>>
+    suspend fun loadPopularMovies(): Resource<ListResponse<MoviesListItemResponse>>
 }
 
 class MoviewRepositoryImpl(private var dataSource: MoviesDataSource):MovieRepository{
@@ -44,6 +45,11 @@ class MoviewRepositoryImpl(private var dataSource: MoviesDataSource):MovieReposi
     override suspend fun loadTopRatedMovies(): Resource<ListResponse<MoviesListItemResponse>> {
         return loadListData(dataSource.loadTopRatedMovies())
     }
+
+    override suspend fun loadPopularMovies(): Resource<ListResponse<MoviesListItemResponse>> {
+        return loadListData(dataSource.loadPopularMovies())
+    }
+
 
     private fun loadListData(list: ListResponse<MoviesListItemResponse>): Resource<ListResponse<MoviesListItemResponse>>{
         return try {
