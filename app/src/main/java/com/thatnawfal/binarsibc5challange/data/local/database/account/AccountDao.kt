@@ -3,6 +3,7 @@ package com.thatnawfal.binarsibc5challange.data.local.database.account
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface AccountDao {
@@ -21,5 +22,8 @@ interface AccountDao {
 
     @Insert
     suspend fun registerAccount(account: AccountEntity) : Long
+
+    @Update
+    suspend fun updateAccount(account: AccountEntity) : Int
 
 }

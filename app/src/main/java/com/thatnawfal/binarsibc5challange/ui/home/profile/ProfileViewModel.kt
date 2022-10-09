@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val repository: LocalRepository): ViewModel() {
     val userDetailResult = MutableLiveData<Resource<AccountEntity>>()
+    val updateAccountResult = MutableLiveData<Resource<Number>>()
 
     fun getDataUser(id: Int){
         userDetailResult.postValue(Resource.Loading())
@@ -20,5 +21,20 @@ class ProfileViewModel(private val repository: LocalRepository): ViewModel() {
                 userDetailResult.postValue(account)
             }
         }
+    }
+
+    fun updateAccount(accountEntity: AccountEntity){
+        viewModelScope.launch {
+            updateAccountResult.postValue(repository.updateAccount(accountEntity))
+        }
+
+    }
+
+    fun getIdPreference(): Int? {
+        return repository.getUserIdInPreference()
+    }
+
+    fun setIdPreference(i: Int) {
+        return repository.setUserIdInPreference(i)
     }
 }

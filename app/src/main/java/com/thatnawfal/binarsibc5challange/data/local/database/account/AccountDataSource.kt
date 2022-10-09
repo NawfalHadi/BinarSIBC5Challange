@@ -7,6 +7,7 @@ package com.thatnawfal.binarsibc5challange.data.local.database.account
         suspend fun registerAccount(account: AccountEntity): Long
         suspend fun checkPassword(email: String, password: String): Boolean
         suspend fun getDataUser(id: Int): AccountEntity
+        suspend fun updateAccount(account: AccountEntity): Int
 
     }
 
@@ -29,5 +30,9 @@ package com.thatnawfal.binarsibc5challange.data.local.database.account
 
         override suspend fun getDataUser(id: Int): AccountEntity {
             return accountDao.getDataUser(id)
+        }
+
+        override suspend fun updateAccount(account: AccountEntity): Int {
+            return accountDao.updateAccount(account)
         }
     }

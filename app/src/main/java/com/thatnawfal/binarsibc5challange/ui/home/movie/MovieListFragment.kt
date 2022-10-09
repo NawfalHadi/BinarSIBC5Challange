@@ -82,18 +82,9 @@ class MovieListFragment : Fragment() {
     private fun observeData() {
         viewModel.nowPlayingMovies.observe(requireActivity()){
             when(it){
-                is Resource.Empty ->{
-                    adapter.clearItems()
-                    Toast.makeText(requireActivity(), "EmptyList", Toast.LENGTH_SHORT).show()
-                }
-                is Resource.Error ->
-                    Toast.makeText(requireActivity(), "Error", Toast.LENGTH_SHORT).show()
-                is Resource.Loading ->
-                    Toast.makeText(requireActivity(), "Loading", Toast.LENGTH_SHORT).show()
                 is Resource.Success -> {
                     it.payload?.result?.let { data -> adapter.setItems(data) }
                     initlist()
-                    Toast.makeText(requireActivity(), "Success", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -119,11 +110,11 @@ class MovieListFragment : Fragment() {
         viewModel.loadAllCategory.observe(requireActivity()){
             if (it == 2) {
                 adapterListRecycler.setItems(tempListData)
+                initRecyclerList()
             }
         }
 
         initRecyclerList()
-
 
 //        viewModel.resultDetailMovie.observe(requireActivity()){
 //            when (it) {
