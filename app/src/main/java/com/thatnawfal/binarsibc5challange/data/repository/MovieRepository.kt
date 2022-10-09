@@ -9,8 +9,7 @@ import com.thatnawfal.binarsibc5challange.wrapper.Resource
 interface MovieRepository {
     suspend fun loadNowPlayingMovies(): Resource<ListResponse<MoviesListItemResponse>>
     suspend fun loadDetailMovie(movieId: Int): Resource<MovieDetailResponse>
-    suspend fun loadLatestMovie(): Resource<ListResponse<MoviesListItemResponse>>
-    suspend fun loadUpcomingMovies(): Resource<ListResponse<MoviesListItemResponse>>
+
     suspend fun loadTopRatedMovies(): Resource<ListResponse<MoviesListItemResponse>>
     suspend fun loadPopularMovies(): Resource<ListResponse<MoviesListItemResponse>>
 }
@@ -34,14 +33,6 @@ class MoviewRepositoryImpl(private var dataSource: MoviesDataSource):MovieReposi
         }
     }
 
-    override suspend fun loadLatestMovie(): Resource<ListResponse<MoviesListItemResponse>> {
-        return loadListData(dataSource.loadLatestMovies())
-    }
-
-    override suspend fun loadUpcomingMovies(): Resource<ListResponse<MoviesListItemResponse>> {
-        return loadListData(dataSource.loadUpcomingMovies())
-    }
-
     override suspend fun loadTopRatedMovies(): Resource<ListResponse<MoviesListItemResponse>> {
         return loadListData(dataSource.loadTopRatedMovies())
     }
@@ -49,7 +40,6 @@ class MoviewRepositoryImpl(private var dataSource: MoviesDataSource):MovieReposi
     override suspend fun loadPopularMovies(): Resource<ListResponse<MoviesListItemResponse>> {
         return loadListData(dataSource.loadPopularMovies())
     }
-
 
     private fun loadListData(list: ListResponse<MoviesListItemResponse>): Resource<ListResponse<MoviesListItemResponse>>{
         return try {

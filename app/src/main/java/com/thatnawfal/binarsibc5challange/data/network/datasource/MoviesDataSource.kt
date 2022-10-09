@@ -9,8 +9,7 @@ import com.thatnawfal.binarsibc5challange.data.network.service.ApiService
 interface MoviesDataSource {
     suspend fun loadNowPlayingMovies(): ListResponse<MoviesListItemResponse>
     suspend fun loadDetailMovie(movieId: Int): MovieDetailResponse
-    suspend fun loadLatestMovies(): ListResponse<MoviesListItemResponse>
-    suspend fun loadUpcomingMovies(): ListResponse<MoviesListItemResponse>
+
     suspend fun loadTopRatedMovies(): ListResponse<MoviesListItemResponse>
     suspend fun loadPopularMovies(): ListResponse<MoviesListItemResponse>
 }
@@ -24,13 +23,6 @@ class MoviesDataSourceImpl(private var apiService: ApiService) : MoviesDataSourc
         return apiService.getMovieDetail(movieId = movieId,)
     }
 
-    override suspend fun loadLatestMovies(): ListResponse<MoviesListItemResponse> {
-        return apiService.getMovieLatest()
-    }
-
-    override suspend fun loadUpcomingMovies(): ListResponse<MoviesListItemResponse> {
-        return apiService.getMovieUpcoming()
-    }
 
     override suspend fun loadTopRatedMovies(): ListResponse<MoviesListItemResponse> {
         return apiService.getMovieTopRated()

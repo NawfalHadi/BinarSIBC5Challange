@@ -22,7 +22,7 @@ class MovieListFragment : Fragment() {
     private lateinit var binding: FragmentMovieListBinding
 
     private val viewModel: MovieListViewModel by viewModelFactory {
-        MovieListViewModel(ServiceLocator.provideRepository())
+        MovieListViewModel(ServiceLocator.provideMovieRepository(requireContext()))
     }
 
     private val adapter : NowPlayingAdapter by lazy {
@@ -57,8 +57,6 @@ class MovieListFragment : Fragment() {
         viewModel.loadNowPlayingMovies()
         viewModel.loadTopRatedMovies()
         viewModel.loadPopularMovies()
-//        viewModel.loadLatestMovie()
-//        viewModel.loadUpcomingMovies()
     }
 
 
@@ -103,23 +101,6 @@ class MovieListFragment : Fragment() {
             when (it) {
                 is Resource.Success -> it.payload?.result?.let {
                     adapterListRecycler.addItems(ListRecycler(getString(R.string.popular_movies), it))
-                }
-            }
-        }
-
-        viewModel.latestListMovies.observe(requireActivity()){
-            when (it) {
-                is Resource.Success -> it.payload?.result?.let {
-                    adapterListRecycler.addItems(ListRecycler(getString(R.string.latest_movies), it))
-                }
-            }
-        }
-
-
-        viewModel.upcomingListMovies.observe(requireActivity()){
-            when (it) {
-                is Resource.Success -> it.payload?.result?.let {
-                    adapterListRecycler.addItems(ListRecycler(getString(R.string.upcoming_movies), it))
                 }
             }
         }

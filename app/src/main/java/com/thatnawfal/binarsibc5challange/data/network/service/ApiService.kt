@@ -23,15 +23,7 @@ interface ApiService {
         @Query("language") language: String = R.string.countryCode.toString()
     ) : MovieDetailResponse
 
-    @GET("movie/latest")
-    suspend fun getMovieLatest(
-        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
-    ) : ListResponse<MoviesListItemResponse>
 
-    @GET("movie/upcmoing")
-    suspend fun getMovieUpcoming(
-        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
-    ) : ListResponse<MoviesListItemResponse>
 
     @GET("movie/top_rated")
     suspend fun getMovieTopRated(

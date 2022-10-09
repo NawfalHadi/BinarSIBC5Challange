@@ -18,8 +18,6 @@ class MovieListViewModel(private var repository: MovieRepository): ViewModel() {
     val resultDetailMovie = MutableLiveData<Resource<MovieDetailResponse>>()
 
     val topRatedListMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
-    val latestListMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
-    val upcomingListMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
     val popularListMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
 
     fun loadNowPlayingMovies(){
@@ -65,24 +63,5 @@ class MovieListViewModel(private var repository: MovieRepository): ViewModel() {
         }
     }
 
-    fun loadLatestMovie(){
-        latestListMovies.postValue(Resource.Loading())
-        viewModelScope.launch(Dispatchers.IO) {
-            val list = repository.loadLatestMovie()
-            viewModelScope.launch(Dispatchers.Main){
-                latestListMovies.postValue(list)
-            }
-        }
-    }
-
-    fun loadUpcomingMovies(){
-        upcomingListMovies.postValue(Resource.Loading())
-        viewModelScope.launch(Dispatchers.IO) {
-            val list = repository.loadUpcomingMovies()
-            viewModelScope.launch(Dispatchers.Main){
-                upcomingListMovies.postValue(list)
-            }
-        }
-    }
 
 }
