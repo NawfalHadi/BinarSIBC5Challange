@@ -61,11 +61,7 @@ class DetailMovieFragment : Fragment() {
         viewModel.resultDetailMovie.observe(requireActivity()){
             when (it) {
                 is Resource.Loading -> binding.pbDetail.isEnabled = true
-                is Resource.Error -> {
-                    print(it.exception)
-                    binding.pbDetail.isEnabled = false
-                    findNavController().popBackStack()
-                }
+
                 is Resource.Empty -> {
                     Toast.makeText(requireContext(), "ba", Toast.LENGTH_SHORT).show()
                     binding.pbDetail.isEnabled = false
@@ -74,6 +70,12 @@ class DetailMovieFragment : Fragment() {
                 is Resource.Success -> {
                     binding.pbDetail.isEnabled = false
                     bindingView(it.payload)
+                }
+
+                is Resource.Error -> {
+                    print(it.exception)
+                    binding.pbDetail.isEnabled = false
+                    findNavController().popBackStack()
                 }
             }
         }

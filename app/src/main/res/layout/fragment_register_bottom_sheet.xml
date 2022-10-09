@@ -32,11 +32,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_etReg_username"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Input Username"
+                style="@style/inputField"
+                android:hint="@string/input_username"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView">
@@ -51,11 +48,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_etReg_email"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Input Email"
+                style="@style/inputField"
+                android:hint="@string/input_email"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_etReg_username">
@@ -70,11 +64,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_etReg_pass"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Input Password"
+                style="@style/inputField"
+                android:hint="@string/input_password"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_etReg_email"
@@ -90,11 +81,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_etReg_comfPass"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Input Password Confirmation"
+                style="@style/inputField"
+                android:hint="@string/input_password_confirmation"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_etReg_pass"
