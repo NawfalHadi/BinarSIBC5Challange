@@ -17,7 +17,7 @@ interface LocalRepository {
     suspend fun isEmailExcist(email: String): Boolean
     suspend fun isPassCorrect(email: String, password: String): Boolean
     suspend fun getDataUser(id: Int): Resource<AccountEntity>
-
+    suspend fun updateAccount(account: AccountEntity): Resource<Number>
 }
 
 class LocalRepositoryImpl(
@@ -69,6 +69,12 @@ class LocalRepositoryImpl(
                 Resource.Success(account)
             }
         } catch (e:Exception) { Resource.Error(e) }
+    }
+
+    override suspend fun updateAccount(account: AccountEntity): Resource<Number> {
+        return proceed {
+            accountDataSource.updateAccount(account)
+        }
     }
 
     private suspend fun <T> proceed(coroutine: suspend () -> T): Resource<T> {
