@@ -24,14 +24,17 @@ class ProfileViewModel(private val repository: LocalRepository): ViewModel() {
     }
 
     fun updateAccount(accountEntity: AccountEntity){
-        updateAccountResult.postValue(Resource.Loading())
-        viewModelScope.launch(Dispatchers.IO){
-            val account = repository.registerAccount(accountEntity)
-            viewModelScope.launch(Dispatchers.Main) { updateAccountResult.postValue(account) }
+        viewModelScope.launch {
+            updateAccountResult.postValue(repository.updateAccount(accountEntity))
         }
+
     }
 
     fun getIdPreference(): Int? {
         return repository.getUserIdInPreference()
+    }
+
+    fun setIdPreference(i: Int) {
+        return repository.setUserIdInPreference(i)
     }
 }
