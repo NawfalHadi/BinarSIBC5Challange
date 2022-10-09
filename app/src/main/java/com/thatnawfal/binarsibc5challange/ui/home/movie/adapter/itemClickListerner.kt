@@ -1,4 +1,5 @@
 package com.thatnawfal.binarsibc5challange.ui.home.movie.adapter
 
-class TopRatedAdapter {
+interface itemClickListerner {
+    fun itemClicked(movieId: Int?)
 }

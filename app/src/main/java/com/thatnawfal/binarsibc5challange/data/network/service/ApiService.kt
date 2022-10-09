@@ -20,21 +20,18 @@ interface ApiService {
     suspend fun getMovieDetail(
         @Path("id") movieId: Int,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-        @Query("language") language: String = R.string.countryCode.toString()
+        @Query("language") language: String
     ) : MovieDetailResponse
 
-    @GET("movie/latest")
-    suspend fun getMovieLatest(
-        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
-    ) : ListResponse<MoviesListItemResponse>
 
-    @GET("movie/upcmoing")
-    suspend fun getMovieUpcoming(
-        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
-    ) : ListResponse<MoviesListItemResponse>
 
     @GET("movie/top_rated")
     suspend fun getMovieTopRated(
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
+    ) : ListResponse<MoviesListItemResponse>
+
+    @GET("movie/popular")
+    suspend fun getPopularMovie(
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY
     ) : ListResponse<MoviesListItemResponse>
 }

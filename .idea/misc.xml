@@ -4,14 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bg_home.xml" value="0.33" />
+        <entry key="app/src/main/res/drawable/shape_form_auth.xml" value="0.272" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.31068840579710144" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_detail_movie.xml" value="0.31068840579710144" />
+        <entry key="app/src/main/res/layout/fragment_list_category.xml" value="0.30495495495495495" />
         <entry key="app/src/main/res/layout/fragment_login_bottom_sheet.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/fragment_movie_list.xml" value="0.31068840579710144" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.31068840579710144" />
         <entry key="app/src/main/res/layout/fragment_register_bottom_sheet.xml" value="0.31068840579710144" />
-        <entry key="app/src/main/res/layout/item_horizontal_poster.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_horizontal_poster.xml" value="0.22484134179510426" />
+        <entry key="app/src/main/res/layout/item_horizontal_poster_s.xml" value="0.22484134179510426" />
+        <entry key="app/src/main/res/layout/item_list_genre.xml" value="0.30495495495495495" />
+        <entry key="app/src/main/res/layout/item_list_recycler.xml" value="0.31068840579710144" />
         <entry key="app/src/main/res/layout/item_search_movie.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu_home.xml" value="0.35260416666666666" />
       </map>

@@ -9,43 +9,51 @@ import com.thatnawfal.binarsibc5challange.data.network.response.detailresponse.M
 import com.thatnawfal.binarsibc5challange.data.repository.MovieRepository
 import com.thatnawfal.binarsibc5challange.wrapper.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(private var repository: MovieRepository): ViewModel() {
 
     val nowPlayingMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
-    val resultDetailMovie = MutableLiveData<Resource<MovieDetailResponse>>()
+
+    val topRatedListMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
+    val popularListMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
+
+    val loadAllCategory = MutableLiveData(0)
 
     fun loadNowPlayingMovies(){
         nowPlayingMovies.postValue(Resource.Loading())
         viewModelScope.launch(Dispatchers.IO) {
             val list =  repository.loadNowPlayingMovies()
+            delay(200)
             viewModelScope.launch(Dispatchers.Main) {
                 nowPlayingMovies.postValue(list)
             }
         }
     }
 
-    fun loadDetailMovie(movieId: Int){
-        resultDetailMovie.postValue(Resource.Loading())
+    // Kalo ada error disini coba jangan ditaruh di io thread barengan
+
+    fun loadTopRatedMovies(){
+        topRatedListMovies.postValue(Resource.Loading())
         viewModelScope.launch(Dispatchers.IO) {
-            val movie = repository.loadDetailMovie(movieId)
+            val list = repository.loadTopRatedMovies()
             viewModelScope.launch(Dispatchers.Main) {
-                resultDetailMovie.postValue(movie)
+                topRatedListMovies.postValue(list)
             }
         }
     }
 
-    fun loadLatestMovie(){
-        TODO()
+    fun loadPopularMovies(){
+        popularListMovies.postValue(Resource.Loading())
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = repository.loadPopularMovies()
+            viewModelScope.launch(Dispatchers.Main) {
+                popularListMovies.postValue(list)
+            }
+        }
     }
 
-    fun loadUpcomingMovies(){
-        TODO()
-    }
 
-    fun loadTopRatedMovies(){
-        TODO()
-    }
 
 }

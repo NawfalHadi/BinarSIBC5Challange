@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.thatnawfal.binarsibc5challange.R
 import com.thatnawfal.binarsibc5challange.databinding.FragmentMovieListBinding
 import com.thatnawfal.binarsibc5challange.provider.ServiceLocator
+import com.thatnawfal.binarsibc5challange.ui.home.movie.adapter.ListRecycler
 import com.thatnawfal.binarsibc5challange.ui.home.movie.adapter.NowPlayingAdapter
+import com.thatnawfal.binarsibc5challange.ui.home.movie.adapter.ParentAdapter
 import com.thatnawfal.binarsibc5challange.ui.home.movie.adapter.itemClickListerner
 import com.thatnawfal.binarsibc5challange.ui.home.movie.viewmodel.MovieListViewModel
 import com.thatnawfal.binarsibc5challange.utils.viewModelFactory
@@ -20,15 +23,27 @@ class MovieListFragment : Fragment() {
     private lateinit var binding: FragmentMovieListBinding
 
     private val viewModel: MovieListViewModel by viewModelFactory {
-        MovieListViewModel(ServiceLocator.provideRepository())
+        MovieListViewModel(ServiceLocator.provideMovieRepository())
     }
 
     private val adapter : NowPlayingAdapter by lazy {
         NowPlayingAdapter(object : itemClickListerner{
             override fun itemClicked(movieId: Int?) {
-                movieId?.let { viewModel.loadDetailMovie(it) }
+                movieId?.let {
+
+                    val mBundle = Bundle()
+                    mBundle.putString("movie_id", "Nawfal")
+
+                    findNavController().navigate(R.id.action_movieListFragment_to_detailMovieFragment, mBundle)
+                }
             }
         })
+    }
+
+    private val tempListData = mutableListOf<ListRecycler>()
+
+    private val adapterListRecycler : ParentAdapter by lazy {
+        ParentAdapter()
     }
 
     override fun onCreateView(
@@ -42,9 +57,21 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadNowPlayingMovies()
+        loadMovieCategories()
         observeData()
 
+    }
+
+    private fun loadMovieCategories() {
+        viewModel.loadNowPlayingMovies()
+        viewModel.loadTopRatedMovies()
+        viewModel.loadPopularMovies()
+    }
+
+
+    private fun initRecyclerList(){
+        binding.rvMovieListRecycler.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        binding.rvMovieListRecycler.adapter = adapterListRecycler
     }
 
     private fun initlist() {
@@ -71,12 +98,42 @@ class MovieListFragment : Fragment() {
             }
         }
 
-        viewModel.resultDetailMovie.observe(requireActivity()){
+        viewModel.topRatedListMovies.observe(requireActivity()){
             when (it) {
-                is Resource.Success -> it.payload?.let {
-                    Toast.makeText(requireActivity(), it.title, Toast.LENGTH_LONG).show()
+                is Resource.Success -> it.payload?.result?.let {
+                    tempListData.add(ListRecycler(getString(R.string.toprated_movies), it))
+                    viewModel.loadAllCategory.value = viewModel.loadAllCategory.value?.plus(1)
                 }
             }
         }
+
+        viewModel.popularListMovies.observe(requireActivity()){
+            when (it) {
+                is Resource.Success -> it.payload?.result?.let {
+                    tempListData.add(ListRecycler(getString(R.string.popular_movies), it))
+                    viewModel.loadAllCategory.value = viewModel.loadAllCategory.value?.plus(1)
+                }
+            }
+        }
+
+        viewModel.loadAllCategory.observe(requireActivity()){
+            if (it == 2) {
+                adapterListRecycler.setItems(tempListData)
+            }
+        }
+
+        initRecyclerList()
+
+
+//        viewModel.resultDetailMovie.observe(requireActivity()){
+//            when (it) {
+//                is Resource.Success -> it.payload?.let {
+//                    Toast.makeText(requireActivity(), it.overview, Toast.LENGTH_LONG).show()
+//                }
+//            }
+//        }
+
+
+
     }
 }

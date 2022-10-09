@@ -57,6 +57,3 @@ class NowPlayingAdapter(
     }
 }
 
-interface itemClickListerner {
-    fun itemClicked(movieId: Int?)
-}
