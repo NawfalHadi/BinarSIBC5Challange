@@ -17,6 +17,10 @@ class ParentAdapter : RecyclerView.Adapter<ParentAdapter.ParentViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun setItems(list: List<ListRecycler>){
+        this.data.addAll(list)
+    }
+
     fun clearItems(){
         this.data.clear()
         notifyDataSetChanged()

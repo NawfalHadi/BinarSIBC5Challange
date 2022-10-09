@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thatnawfal.binarsibc5challange.R
 import com.thatnawfal.binarsibc5challange.databinding.FragmentMovieListBinding
@@ -22,16 +23,24 @@ class MovieListFragment : Fragment() {
     private lateinit var binding: FragmentMovieListBinding
 
     private val viewModel: MovieListViewModel by viewModelFactory {
-        MovieListViewModel(ServiceLocator.provideMovieRepository(requireContext()))
+        MovieListViewModel(ServiceLocator.provideMovieRepository())
     }
 
     private val adapter : NowPlayingAdapter by lazy {
         NowPlayingAdapter(object : itemClickListerner{
             override fun itemClicked(movieId: Int?) {
-                movieId?.let { viewModel.loadDetailMovie(it) }
+                movieId?.let {
+
+                    val mBundle = Bundle()
+                    mBundle.putString("movie_id", "Nawfal")
+
+                    findNavController().navigate(R.id.action_movieListFragment_to_detailMovieFragment, mBundle)
+                }
             }
         })
     }
+
+    private val tempListData = mutableListOf<ListRecycler>()
 
     private val adapterListRecycler : ParentAdapter by lazy {
         ParentAdapter()
@@ -92,7 +101,8 @@ class MovieListFragment : Fragment() {
         viewModel.topRatedListMovies.observe(requireActivity()){
             when (it) {
                 is Resource.Success -> it.payload?.result?.let {
-                    adapterListRecycler.addItems(ListRecycler(getString(R.string.toprated_movies), it))
+                    tempListData.add(ListRecycler(getString(R.string.toprated_movies), it))
+                    viewModel.loadAllCategory.value = viewModel.loadAllCategory.value?.plus(1)
                 }
             }
         }
@@ -100,21 +110,28 @@ class MovieListFragment : Fragment() {
         viewModel.popularListMovies.observe(requireActivity()){
             when (it) {
                 is Resource.Success -> it.payload?.result?.let {
-                    adapterListRecycler.addItems(ListRecycler(getString(R.string.popular_movies), it))
+                    tempListData.add(ListRecycler(getString(R.string.popular_movies), it))
+                    viewModel.loadAllCategory.value = viewModel.loadAllCategory.value?.plus(1)
                 }
+            }
+        }
+
+        viewModel.loadAllCategory.observe(requireActivity()){
+            if (it == 2) {
+                adapterListRecycler.setItems(tempListData)
             }
         }
 
         initRecyclerList()
 
 
-        viewModel.resultDetailMovie.observe(requireActivity()){
-            when (it) {
-                is Resource.Success -> it.payload?.let {
-                    Toast.makeText(requireActivity(), it.title, Toast.LENGTH_LONG).show()
-                }
-            }
-        }
+//        viewModel.resultDetailMovie.observe(requireActivity()){
+//            when (it) {
+//                is Resource.Success -> it.payload?.let {
+//                    Toast.makeText(requireActivity(), it.overview, Toast.LENGTH_LONG).show()
+//                }
+//            }
+//        }
 
 
 

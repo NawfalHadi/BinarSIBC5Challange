@@ -20,7 +20,7 @@ interface ApiService {
     suspend fun getMovieDetail(
         @Path("id") movieId: Int,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-        @Query("language") language: String = R.string.countryCode.toString()
+        @Query("language") language: String
     ) : MovieDetailResponse
 
 

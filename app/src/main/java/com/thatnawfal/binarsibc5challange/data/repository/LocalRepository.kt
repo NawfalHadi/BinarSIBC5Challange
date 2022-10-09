@@ -16,6 +16,7 @@ interface LocalRepository {
     suspend fun registerAccount(account: AccountEntity): Resource<Number>
     suspend fun isEmailExcist(email: String): Boolean
     suspend fun isPassCorrect(email: String, password: String): Boolean
+    suspend fun getDataUser(id: Int): Resource<AccountEntity>
 
 }
 
@@ -57,6 +58,17 @@ class LocalRepositoryImpl(
 
     override suspend fun isPassCorrect(email: String, password: String): Boolean {
         return accountDataSource.checkPassword(email, password)
+    }
+
+    override suspend fun getDataUser(id: Int): Resource<AccountEntity> {
+        return try {
+            val account = accountDataSource.getDataUser(id)
+            if (account.username.isNullOrEmpty()){
+                Resource.Empty()
+            } else {
+                Resource.Success(account)
+            }
+        } catch (e:Exception) { Resource.Error(e) }
     }
 
     private suspend fun <T> proceed(coroutine: suspend () -> T): Resource<T> {

@@ -15,10 +15,11 @@ import kotlinx.coroutines.launch
 class MovieListViewModel(private var repository: MovieRepository): ViewModel() {
 
     val nowPlayingMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
-    val resultDetailMovie = MutableLiveData<Resource<MovieDetailResponse>>()
 
     val topRatedListMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
     val popularListMovies = MutableLiveData<Resource<ListResponse<MoviesListItemResponse>>>()
+
+    val loadAllCategory = MutableLiveData(0)
 
     fun loadNowPlayingMovies(){
         nowPlayingMovies.postValue(Resource.Loading())
@@ -27,16 +28,6 @@ class MovieListViewModel(private var repository: MovieRepository): ViewModel() {
             delay(200)
             viewModelScope.launch(Dispatchers.Main) {
                 nowPlayingMovies.postValue(list)
-            }
-        }
-    }
-
-    fun loadDetailMovie(movieId: Int){
-        resultDetailMovie.postValue(Resource.Loading())
-        viewModelScope.launch(Dispatchers.IO) {
-            val movie = repository.loadDetailMovie(movieId)
-            viewModelScope.launch(Dispatchers.Main) {
-                resultDetailMovie.postValue(movie)
             }
         }
     }
@@ -62,6 +53,7 @@ class MovieListViewModel(private var repository: MovieRepository): ViewModel() {
             }
         }
     }
+
 
 
 }

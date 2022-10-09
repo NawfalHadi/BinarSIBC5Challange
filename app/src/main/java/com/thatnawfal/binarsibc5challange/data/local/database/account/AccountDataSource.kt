@@ -6,6 +6,7 @@ package com.thatnawfal.binarsibc5challange.data.local.database.account
         suspend fun checkEmailExcist(email: String): Boolean
         suspend fun registerAccount(account: AccountEntity): Long
         suspend fun checkPassword(email: String, password: String): Boolean
+        suspend fun getDataUser(id: Int): AccountEntity
 
     }
 
@@ -24,5 +25,9 @@ package com.thatnawfal.binarsibc5challange.data.local.database.account
 
         override suspend fun checkPassword(email: String, password: String): Boolean {
             return accountDao.passwordIsCorrect(email, password) > 0
+        }
+
+        override suspend fun getDataUser(id: Int): AccountEntity {
+            return accountDao.getDataUser(id)
         }
     }

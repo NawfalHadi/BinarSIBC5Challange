@@ -8,7 +8,7 @@ import com.thatnawfal.binarsibc5challange.wrapper.Resource
 
 interface MovieRepository {
     suspend fun loadNowPlayingMovies(): Resource<ListResponse<MoviesListItemResponse>>
-    suspend fun loadDetailMovie(movieId: Int): Resource<MovieDetailResponse>
+    suspend fun loadDetailMovie(movieId: Int, language:String): Resource<MovieDetailResponse>
 
     suspend fun loadTopRatedMovies(): Resource<ListResponse<MoviesListItemResponse>>
     suspend fun loadPopularMovies(): Resource<ListResponse<MoviesListItemResponse>>
@@ -20,9 +20,9 @@ class MoviewRepositoryImpl(private var dataSource: MoviesDataSource):MovieReposi
         return loadListData(dataSource.loadNowPlayingMovies())
     }
 
-    override suspend fun loadDetailMovie(movieId: Int): Resource<MovieDetailResponse> {
+    override suspend fun loadDetailMovie(movieId: Int, language:String): Resource<MovieDetailResponse> {
         return try {
-            val movie = dataSource.loadDetailMovie(movieId)
+            val movie = dataSource.loadDetailMovie(movieId, language)
             if (movie.title.isNullOrEmpty()) {
                 Resource.Empty()
             } else {

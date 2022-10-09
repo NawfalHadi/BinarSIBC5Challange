@@ -9,6 +9,7 @@
     <string name="now_playing">Sedang Tayang</string>
     <string name="latest_movies">Rilis Terbaru</string>
     <string name="toprated_movies">Peringkat Teratas</string>
-    <string name="upcoming_movies">Upcoming</string>
-    <string name="popular_movies">Popular Movies</string>
+    <string name="popular_movies">Populer</string>
+    <string name="recomended">Recommendation</string>
+    <string name="minute">Minute</string>
 </resources>

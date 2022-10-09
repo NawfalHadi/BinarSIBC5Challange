@@ -53,7 +53,7 @@ object ServiceLocator {
         return MoviesDataSourceImpl(apiService)
     }
 
-    fun provideMovieRepository(context: Context): MovieRepository{
+    fun provideMovieRepository(): MovieRepository{
         return MoviewRepositoryImpl(
             provideMovieDataSource(provideApiService()))
     }
