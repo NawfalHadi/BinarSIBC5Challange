@@ -30,10 +30,8 @@ class MovieListFragment : Fragment() {
         NowPlayingAdapter(object : itemClickListerner{
             override fun itemClicked(movieId: Int?) {
                 movieId?.let {
-
                     val mBundle = Bundle()
-                    mBundle.putString("movie_id", "Nawfal")
-
+                    mBundle.putInt("movie_id", it)
                     findNavController().navigate(R.id.action_movieListFragment_to_detailMovieFragment, mBundle)
                 }
             }
@@ -43,7 +41,16 @@ class MovieListFragment : Fragment() {
     private val tempListData = mutableListOf<ListRecycler>()
 
     private val adapterListRecycler : ParentAdapter by lazy {
-        ParentAdapter()
+        ParentAdapter(object : itemClickListerner{
+            override fun itemClicked(movieId: Int?) {
+                movieId?.let {
+                    val mBundle = Bundle()
+                    mBundle.putInt("movie_id", it)
+                    findNavController().navigate(R.id.action_movieListFragment_to_detailMovieFragment, mBundle)
+                }
+            }
+
+        })
     }
 
     override fun onCreateView(

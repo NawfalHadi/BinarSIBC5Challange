@@ -10,15 +10,16 @@
     <string name="latest_movies">Rilis Terbaru</string>
     <string name="toprated_movies">Peringkat Teratas</string>
     <string name="popular_movies">Populer</string>
-    <string name="recomended">Recommendation</string>
-    <string name="minute">Minute</string>
-    <string name="input_username">Input Username</string>
-    <string name="input_email">Input Email</string>
-    <string name="input_password_confirmation">Input Password Confirmation</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
-    <string name="input_new_password">Input New Password</string>
-    <string name="confirm">Confirm</string>
-    <string name="logout">Logout</string>
-    <string name="input_curPass">Input Current Password</string>
+    <string name="recomended">Rekomendasi</string>
+    <string name="minute">Menit</string>
+    <string name="input_username">Masukkan Username</string>
+    <string name="input_password">Masukkan Password</string>
+    <string name="input_email">Masukkan Email</string>
+    <string name="input_password_confirmation">Masukkan Confirmasi Password</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
+    <string name="input_new_password">Masukkan Password Baru</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="logout">Keluar</string>
+    <string name="input_curPass">Masukkan Password Saat Ini</string>
 </resources>

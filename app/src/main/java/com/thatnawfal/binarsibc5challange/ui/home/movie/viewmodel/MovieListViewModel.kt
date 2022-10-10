@@ -32,8 +32,6 @@ class MovieListViewModel(private var repository: MovieRepository): ViewModel() {
         }
     }
 
-    // Kalo ada error disini coba jangan ditaruh di io thread barengan
-
     fun loadTopRatedMovies(){
         topRatedListMovies.postValue(Resource.Loading())
         viewModelScope.launch(Dispatchers.IO) {

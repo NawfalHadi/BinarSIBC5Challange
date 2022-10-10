@@ -49,7 +49,7 @@ class ChildAdapter(
                     placeholder(R.drawable.poster_placeholder)
                 }
                 cvW185Poster.setOnClickListener {
-//                    listener.itemClicked(movie.id)
+                    listener.itemClicked(movie.id)
                 }
             }
         }

@@ -8,7 +8,9 @@ import com.thatnawfal.binarsibc5challange.data.network.response.ListResponse
 import com.thatnawfal.binarsibc5challange.data.network.response.MoviesListItemResponse
 import com.thatnawfal.binarsibc5challange.databinding.ItemListRecyclerBinding
 
-class ParentAdapter : RecyclerView.Adapter<ParentAdapter.ParentViewHolder>() {
+class ParentAdapter(
+    private val listener: itemClickListerner
+) : RecyclerView.Adapter<ParentAdapter.ParentViewHolder>() {
 
     private var data: MutableList<ListRecycler> = mutableListOf()
 
@@ -28,7 +30,7 @@ class ParentAdapter : RecyclerView.Adapter<ParentAdapter.ParentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParentViewHolder {
         val binding = ItemListRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ParentViewHolder(binding)
+        return ParentViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: ParentViewHolder, position: Int) {
@@ -39,7 +41,8 @@ class ParentAdapter : RecyclerView.Adapter<ParentAdapter.ParentViewHolder>() {
     override fun getItemCount(): Int = data.size
 
     class ParentViewHolder(
-        private val binding: ItemListRecyclerBinding
+        private val binding: ItemListRecyclerBinding,
+        private val listerner: itemClickListerner
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindingView(list: ListRecycler) {
@@ -49,7 +52,7 @@ class ParentAdapter : RecyclerView.Adapter<ParentAdapter.ParentViewHolder>() {
                 val adapter: ChildAdapter by lazy {
                     ChildAdapter(object : itemClickListerner {
                         override fun itemClicked(movieId: Int?) {
-                            TODO()
+                            listerner.itemClicked(movieId)
                         }
                     })
                 }
