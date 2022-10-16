@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bg_home.xml" value="0.33" />
+        <entry key="app/src/main/res/drawable/ic_back.xml" value="0.213" />
         <entry key="app/src/main/res/drawable/shape_form_auth.xml" value="0.272" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.31068840579710144" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
